@@ -2,6 +2,7 @@
 #define HEAP_H
 #include <functional>
 #include <stdexcept>
+#include <vector>
 
 template <typename T, typename PComparator = std::less<T> >
 class Heap
@@ -61,13 +62,41 @@ public:
 
 private:
   /// Add whatever helper functions and data members you need below
-
-
+  std::vector<T> vals;
+  PComparator comp;
+  int m;
 
 
 };
 
 // Add implementation of member functions here
+
+
+template <typename T, typename PComparator>
+Heap<T,PComparator>::Heap(int m, PComparator c):m(m), comp(c){
+
+}
+template <typename T, typename PComparator>
+Heap<T,PComparator>::~Heap(){
+
+}
+
+template <typename T, typename PComparator>
+void Heap<T,PComparator>::push(const T& item){
+  vals.push_back(item);
+  int index = vals.size() - 1;
+  while (index != 0) {
+    int parent_index = (index - 1) / m;
+    T& current = vals[index];
+    T& parent = vals[parent_index];
+    if (comp(current, parent)) {
+      break;
+    }
+    std::swap(current, parent);
+    index = parent_index;
+    }
+}
+
 
 
 // We will start top() for you to handle the case of 
@@ -81,16 +110,15 @@ T const & Heap<T,PComparator>::top() const
     // ================================
     // throw the appropriate exception
     // ================================
-
+    throw std::underflow_error("Heap is empty");
 
   }
   // If we get here we know the heap has at least 1 item
   // Add code to return the top element
-
+  return vals[0];
 
 
 }
-
 
 // We will start pop() for you to handle the case of 
 // calling top on an empty heap
@@ -101,14 +129,43 @@ void Heap<T,PComparator>::pop()
     // ================================
     // throw the appropriate exception
     // ================================
-
+    throw std::underflow_error("Heap is empty");
 
   }
 
+  // Move last element to the root and remove the last element
+  std::swap(vals[0], vals.back());
+  vals.pop_back();
 
-
+  // Restore heap property
+  int index = 0;
+  int size = vals.size();
+    while (m * index + 1 < size) {  // While at least one child exists
+        int best =index;
+        for(int i=1;i<=m;i++){        //does the comparrison for each child, not just left and right
+          int child = m * index + i;
+          if(child<size && comp(vals[best],vals[child])){
+            best=child;
+          }
+        }
+        // If no swap is needed, heap property is restored
+        if (best == index) {
+            break;
+        }
+        std::swap(vals[index], vals[best]);
+        index = best;  // Move down the tree
+    }
 }
 
+template <typename T, typename PComparator>
+bool Heap<T,PComparator>::empty() const{
+  return vals.empty();
+}
+
+template <typename T, typename PComparator>
+size_t Heap<T,PComparator>::size() const{
+  return vals.size();
+}
 
 
 #endif

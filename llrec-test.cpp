@@ -14,6 +14,18 @@ using namespace std;
  *  Pointer to the linked list (or NULL if empty or the
  *  file is invalid)
  */
+
+struct IsOdd{
+    bool operator()(int x){
+        return (x%2) !=0;
+    }
+};
+struct IsDivisibleByThree{
+    bool operator()(int x){
+        return (x%3) ==0;
+    }
+};
+
 Node* readList(const char* filename);
 
 /**
@@ -85,7 +97,26 @@ int main(int argc, char* argv[])
     cout << "Original list: ";
     print(head);
 
+    /*Node* removed= llfilter(head, IsOdd());
+    cout<<"Filtered: Odds ";
+    print(removed);*/
+    
+
+    Node* removed2= llfilter(head, IsDivisibleByThree());
+    cout<<"Filtered: Divisible by Three ";
+    print(removed2);
+    dealloc(removed2);
     // Test out your linked list code
+   /* Node *smaller;
+    Node *larger;
+    int pivot = 5;*/
+
+   /* llpivot(head,smaller, larger,pivot);
+
+    cout << "Smaller: ";
+    print(smaller);
+    cout << "Larger: ";
+    print(larger);*/
 
 
 
