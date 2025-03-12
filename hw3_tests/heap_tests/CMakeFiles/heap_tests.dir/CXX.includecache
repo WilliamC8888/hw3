@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/work/hw3final2/heap.h
+/home/codio/workspace/hw3/heap.h
 functional
 -
 stdexcept
@@ -14,7 +14,7 @@ stdexcept
 vector
 -
 
-/work/hw3final2/hw3_tests/heap_tests/heap_tests.cpp
+/home/codio/workspace/hw3/hw3_tests/heap_tests/heap_tests.cpp
 heap.h
 -
 gtest/gtest.h
@@ -26,7 +26,7 @@ queue
 algorithm
 -
 
-testing_utils/random_generator.h
+testing_utils/./random_generator.h
 random
 -
 vector
