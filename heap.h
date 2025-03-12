@@ -85,15 +85,16 @@ template <typename T, typename PComparator>
 void Heap<T,PComparator>::push(const T& item){
   vals.push_back(item);
   int index = vals.size() - 1;
-  while (index != 0) {
+  while (index>0) {
     int parent_index = (index - 1) / m;
-    T& current = vals[index];
-    T& parent = vals[parent_index];
-    if (comp(current, parent)) {
-      break;
-    }
-    std::swap(current, parent);
-    index = parent_index;
+      
+      
+      if (comp(vals[index], vals[parent_index])) {
+          std::swap(vals[index], vals[parent_index]);
+          index = parent_index;
+      } else {
+          break;
+      }
     }
 }
 
@@ -140,14 +141,16 @@ void Heap<T,PComparator>::pop()
   // Restore heap property
   int index = 0;
   int size = vals.size();
+    
     while (m * index + 1 < size) {  // While at least one child exists
         int best =index;
-        for(int i=1;i<=m;i++){        //does the comparrison for each child, not just left and right
-          int child = m * index + i;
-          if(child<size && comp(vals[best],vals[child])){
-            best=child;
-          }
-        }
+        
+        for (int i = 1; i <= m; i++) {
+            int child = m * index + i;
+                if (child < size && comp(vals[child], vals[best])) {
+                    best = child;
+                }
+            }
         // If no swap is needed, heap property is restored
         if (best == index) {
             break;

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <functional>
 #include "llrec.h"
+
 using namespace std;
 
 /**
@@ -102,24 +103,50 @@ int main(int argc, char* argv[])
     print(removed);*/
     
 
-    Node* removed2= llfilter(head, IsDivisibleByThree());
+    /*Node* removed2= llfilter(head, IsDivisibleByThree());
     cout<<"Filtered: Divisible by Three ";
     print(removed2);
-    dealloc(removed2);
+    dealloc(removed2);*/
+    
+    
     // Test out your linked list code
-   /* Node *smaller;
+    //Node* list = makeList({2});
+    
+    /*
+    
+    Node *smaller;
     Node *larger;
-    int pivot = 5;*/
+    int pivot = 10;
 
-   /* llpivot(head,smaller, larger,pivot);
+    llpivot(head,smaller, larger,pivot);
 
+    cout<<"Pivot: "<<pivot<<endl;
     cout << "Smaller: ";
     print(smaller);
     cout << "Larger: ";
-    print(larger);*/
-
-
-
+    print(larger);
+    */
+    head=nullptr;
+    Node *smaller=nullptr;
+    Node *larger=nullptr;
+    int pivot =42;
+    cout << "Original list: ";
+    print(head);
+    cout<<"Head: "<<head<<endl;
+    cout<<"Pivot: "<<pivot<<endl;
+    cout << "Smaller: ";
+    print(smaller);
+    cout << "Larger: ";
+    print(larger);
+    llpivot(head,smaller,larger,pivot);
+    cout << "Final list: ";
+    print(head);
+    cout<<"Head: "<< head <<endl;
+    cout<<"Pivot: "<< pivot <<endl;
+    cout << "Smaller: ";
+    print(smaller);
+    cout << "Larger: ";
+    print(larger);
     
     return 0;
 
